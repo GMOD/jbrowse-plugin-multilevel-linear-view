@@ -1,4 +1,6 @@
-# jbrowse-plugin-template
+![Integration](git@github.com:GMOD/jbrowse-plugin-template/workflows/Integration/badge.svg?branch=main)
+
+# jbrowse-plugin-multilevel-linear-view
 
 > Template to quickly start a new JBrowse plugin
 
