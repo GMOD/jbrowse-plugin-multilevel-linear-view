@@ -16,7 +16,7 @@ import {
 } from 'material-ui-popup-state/hooks'
 
 import LabelField from './LabelField'
-import { RegionWidth } from './Controls'
+import { RegionWidth } from './util'
 
 const MiniControls = observer((props: { model: LinearGenomeViewModel }) => {
   const { model } = props

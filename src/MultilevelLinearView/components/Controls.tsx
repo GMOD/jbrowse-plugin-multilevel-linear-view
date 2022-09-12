@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Typography, Button, FormGroup, useTheme, alpha } from '@mui/material'
+import { Button, FormGroup, useTheme, alpha } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
@@ -10,6 +10,7 @@ import { SearchBox } from '@jbrowse/plugin-linear-genome-view'
 import { LinearGenomeMultilevelViewModel } from '../../LinearGenomeMultilevelView/model'
 import { MultilevelLinearViewModel } from '../model'
 import MiniControls from './MiniControls'
+import { RegionWidth } from './util'
 
 type LCV = MultilevelLinearViewModel
 type LGV = LinearGenomeMultilevelViewModel
@@ -18,7 +19,7 @@ const WIDGET_HEIGHT = 32
 const SPACING = 7
 const HEADER_BAR_HEIGHT = 48
 
-const useStyles = makeStyles()(theme => ({
+const useStyles = makeStyles()((theme) => ({
   headerBar: {
     gridArea: '1/1/auto/span 2',
     display: 'flex',
@@ -31,11 +32,6 @@ const useStyles = makeStyles()(theme => ({
   headerForm: {
     flexWrap: 'nowrap',
     marginRight: 7,
-  },
-  bp: {
-    display: 'flex',
-    alignItems: 'center',
-    marginLeft: 10,
   },
   toggleButton: {
     height: 44,
@@ -120,16 +116,6 @@ export function PanControls({ model }: { model: LGV }) {
     </>
   )
 }
-
-export const RegionWidth = observer(({ model }: { model: LGV }) => {
-  const { classes } = useStyles()
-  const { coarseTotalBp } = model
-  return (
-    <Typography variant="body2" color="textSecondary" className={classes.bp}>
-      {Math.round(coarseTotalBp).toLocaleString('en-US')} bp
-    </Typography>
-  )
-})
 
 const Controls = observer(
   ({

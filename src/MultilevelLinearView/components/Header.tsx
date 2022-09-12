@@ -1,15 +1,18 @@
 import React from 'react'
 import { observer } from 'mobx-react'
+import { getEnv } from 'mobx-state-tree'
 import { IconButton, FormGroup, useTheme, alpha } from '@mui/material'
 import LinkIcon from '@mui/icons-material/Link'
 import LinkOffIcon from '@mui/icons-material/LinkOff'
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter'
 // @ts-ignore
-import { ZoomControls } from '@jbrowse/plugin-linear-genome-view'
+// import { ZoomControls } from '@jbrowse/plugin-linear-genome-view'
 import { SearchBox } from '@jbrowse/plugin-linear-genome-view'
+import { getSession } from '@jbrowse/core/util'
 
 import { MultilevelLinearViewModel } from '../model'
-import { PanControls, RegionWidth } from './Controls'
+import { PanControls } from './Controls'
+import { RegionWidth } from './util'
 
 type LCV = MultilevelLinearViewModel
 
@@ -46,6 +49,15 @@ const Header = observer(
     const colour = primary.light
     // @ts-ignore
     const anchorView = model?.views?.find((view) => view.isAnchor)
+
+    const pluginManager = getEnv(getSession(model)).pluginManager
+
+    const LGV = pluginManager.getPlugin(
+      'LinearGenomeView',
+    ) as import('@jbrowse/plugin-linear-genome-view').default
+
+    // @ts-ignore
+    const { ZoomControls } = LGV.exports
 
     return (
       <div>
