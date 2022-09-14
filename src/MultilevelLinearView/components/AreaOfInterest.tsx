@@ -1,6 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Typography, useTheme, alpha } from '@mui/material'
+import { Typography } from '@mui/material'
+import { useTheme, alpha } from '@mui/material/styles'
 import { makeStyles } from 'tss-react/mui'
 
 import { LinearGenomeMultilevelViewModel } from '../../LinearGenomeMultilevelView/model'
@@ -9,7 +10,7 @@ import { MultilevelLinearViewModel } from '../model'
 type LCV = MultilevelLinearViewModel
 type LGV = LinearGenomeMultilevelViewModel
 
-const useStyles = makeStyles()(theme => ({
+const useStyles = makeStyles()((theme) => ({
   guide: {
     pointerEvents: 'none',
     position: 'absolute',
@@ -51,7 +52,7 @@ const AreaOfInterest = observer(
         : view.height - 55 - 12 + (view.tracks.length - 1) * 4 + labelOffset
 
     // @ts-ignore
-    const anchorView = model.views.find(view => view.isAnchor)
+    const anchorView = model.views.find((view) => view.isAnchor)
 
     return (
       <>

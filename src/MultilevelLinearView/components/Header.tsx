@@ -1,12 +1,11 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { getEnv } from 'mobx-state-tree'
-import { IconButton, FormGroup, useTheme, alpha } from '@mui/material'
+import { IconButton, FormGroup } from '@mui/material'
+import { useTheme, alpha } from '@mui/material/styles'
 import LinkIcon from '@mui/icons-material/Link'
 import LinkOffIcon from '@mui/icons-material/LinkOff'
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter'
-// @ts-ignore
-// import { ZoomControls } from '@jbrowse/plugin-linear-genome-view'
 import { SearchBox } from '@jbrowse/plugin-linear-genome-view'
 import { getSession } from '@jbrowse/core/util'
 
@@ -53,7 +52,7 @@ const Header = observer(
     const pluginManager = getEnv(getSession(model)).pluginManager
 
     const LGV = pluginManager.getPlugin(
-      'LinearGenomeView',
+      'LinearGenomeViewPlugin',
     ) as import('@jbrowse/plugin-linear-genome-view').default
 
     // @ts-ignore

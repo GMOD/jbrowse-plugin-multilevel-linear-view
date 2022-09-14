@@ -1,6 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Button, FormGroup, useTheme, alpha } from '@mui/material'
+import { Button, FormGroup } from '@mui/material'
+import { useTheme, alpha } from '@mui/material/styles'
 import { makeStyles } from 'tss-react/mui'
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
