@@ -20,7 +20,7 @@ import { RefNameAutocomplete } from '@jbrowse/plugin-linear-genome-view/'
 
 import { MultilevelLinearViewModel } from '../model'
 
-const useStyles = makeStyles()(theme => ({
+const useStyles = makeStyles()((theme) => ({
   importFormContainer: {
     padding: theme.spacing(4),
   },
@@ -44,8 +44,8 @@ const ImportForm = observer(
 
     const assemblyError = assemblyNames.length
       ? selected
-          .map(a => assemblyManager.get(a)?.error)
-          .filter(f => !!f)
+          .map((a) => assemblyManager.get(a)?.error)
+          .filter((f) => !!f)
           .join(', ')
       : 'No configured assemblies'
 
@@ -124,7 +124,7 @@ const ImportForm = observer(
         model.setViews(
           // @ts-ignore
           await Promise.all(
-            selected.map(async selection => {
+            selected.map(async (selection) => {
               const assembly = await assemblyManager.waitForAssembly(selection)
               if (!assembly) {
                 throw new Error(`Assembly ${selection} failed to load`)
@@ -146,7 +146,7 @@ const ImportForm = observer(
           let zoomVal = 0
           let num = model.views.length - 1
           let index = 0
-          model.views.forEach(view => {
+          model.views.forEach((view) => {
             view.setWidth(model.width)
             if (selectedRegion) {
               handleSelectedRegion(selectedRegion, view)
@@ -176,7 +176,7 @@ const ImportForm = observer(
 
           let zoomVal = 1
           let num = 2
-          model.views.forEach(view => {
+          model.views.forEach((view) => {
             view.setWidth(model.width)
             if (selectedRegion) {
               handleSelectedRegion(selectedRegion, view)
@@ -226,8 +226,8 @@ const ImportForm = observer(
       )
 
       const refNameResults = assembly?.allRefNames
-        ?.filter(refName => refName.startsWith(query))
-        .map(r => new BaseResult({ label: r }))
+        ?.filter((refName) => refName.startsWith(query))
+        .map((r) => new BaseResult({ label: r }))
         .slice(0, 10)
 
       return [...(refNameResults || []), ...(textSearchResults || [])]
@@ -241,7 +241,7 @@ const ImportForm = observer(
         <Grid container spacing={1} justifyContent="center" alignItems="center">
           <Grid item>
             <AssemblySelector
-              onChange={val => {
+              onChange={(val) => {
                 setError(undefined)
                 setSelected(Array(parseInt(numViews, 10)).fill(val))
               }}
@@ -262,7 +262,7 @@ const ImportForm = observer(
                   value={selectedRegion}
                   // note: minWidth 270 accomodates full width of helperText
                   minWidth={270}
-                  onSelect={option => setOption(option)}
+                  onSelect={(option) => setOption(option)}
                   TextFieldProps={{
                     margin: 'normal',
                     variant: 'outlined',
@@ -277,15 +277,17 @@ const ImportForm = observer(
           </Grid>
           <Grid item>
             <Tooltip title="Views are limited between 2 and 10">
-              <TextField
-                value={numViews}
-                type="number"
-                variant="outlined"
-                margin="normal"
-                onChange={event => setNumViews(event.target.value)}
-                style={{ width: '8rem', verticalAlign: 'baseline' }}
-                helperText="Number of views"
-              />
+              <>
+                <TextField
+                  value={numViews}
+                  type="number"
+                  variant="outlined"
+                  margin="normal"
+                  onChange={(event) => setNumViews(event.target.value)}
+                  style={{ width: '8rem', verticalAlign: 'baseline' }}
+                  helperText="Number of views"
+                />
+              </>
             </Tooltip>
           </Grid>
           <Grid item>
@@ -295,7 +297,7 @@ const ImportForm = observer(
               variant="outlined"
               margin="normal"
               label="Order"
-              onChange={event => setOrder(event.target.value)}
+              onChange={(event) => setOrder(event.target.value)}
               style={{ width: '17rem', verticalAlign: 'baseline' }}
               helperText={`${order} order has the overview at the ${
                 order === 'Descending' ? 'top' : 'bottom'
