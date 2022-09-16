@@ -5,8 +5,8 @@ import { LinearGenomeMultilevelViewModel } from '../../LinearGenomeMultilevelVie
 import { MultilevelLinearViewModel } from '../model'
 import Controls from './Controls'
 
-type LCV = MultilevelLinearViewModel
-type LGV = LinearGenomeMultilevelViewModel
+type MLLV = MultilevelLinearViewModel
+type LGMLV = LinearGenomeMultilevelViewModel
 
 const Subheader = observer(
   ({
@@ -14,8 +14,8 @@ const Subheader = observer(
     view,
     polygonPoints,
   }: {
-    model: LCV
-    view: LGV
+    model: MLLV
+    view: LGMLV
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     polygonPoints: any
   }) => {

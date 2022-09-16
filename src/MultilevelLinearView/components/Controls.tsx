@@ -13,8 +13,8 @@ import { MultilevelLinearViewModel } from '../model'
 import MiniControls from './MiniControls'
 import { RegionWidth } from './util'
 
-type LCV = MultilevelLinearViewModel
-type LGV = LinearGenomeMultilevelViewModel
+type MLLV = MultilevelLinearViewModel
+type LGMLV = LinearGenomeMultilevelViewModel
 
 const WIDGET_HEIGHT = 32
 const SPACING = 7
@@ -60,7 +60,7 @@ const Polygon = observer(
     view,
     polygonPoints,
   }: {
-    view: LGV
+    view: LGMLV
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     polygonPoints: any
   }) => {
@@ -94,7 +94,7 @@ const Polygon = observer(
   },
 )
 
-export function PanControls({ model }: { model: LGV }) {
+export function PanControls({ model }: { model: LGMLV }) {
   const { classes } = useStyles()
   return (
     <>
@@ -125,8 +125,8 @@ const Controls = observer(
     polygonPoints,
     ExtraControls,
   }: {
-    view: LGV
-    model: LCV
+    view: LGMLV
+    model: MLLV
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     polygonPoints?: any
     ExtraControls?: React.ReactNode

@@ -9,6 +9,10 @@ import Subheader from './Subheader'
 import Header from './Header'
 import { bpToPx } from '@jbrowse/core/util'
 import ImportForm from './ImportForm'
+import { ThemeProvider } from '@emotion/react'
+import { createJBrowseTheme } from '@jbrowse/core/ui'
+
+const theme = createJBrowseTheme()
 
 const useStyles = makeStyles()(() => ({
   container: {
@@ -30,12 +34,12 @@ const useStyles = makeStyles()(() => ({
   },
 }))
 
-type LCV = MultilevelLinearViewModel
+type MLLV = MultilevelLinearViewModel
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const setPolygonPoints = (model: any, view: any) => {
   // @ts-ignore
-  const anchorView = model.views.find(view => view.isAnchor)
+  const anchorView = model.views.find((view) => view.isAnchor)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getLeft = (view: any) => {
     const coordA = bpToPx(
@@ -100,7 +104,7 @@ const setPolygonPoints = (model: any, view: any) => {
 }
 
 const MultilevelLinearView = observer(
-  (props: { model: LCV; ExtraButtons?: React.ReactNode }) => {
+  (props: { model: MLLV; ExtraButtons?: React.ReactNode }) => {
     const { classes } = useStyles()
     const { model, ExtraButtons } = props
     const { pluginManager } = getEnv(model)
@@ -111,12 +115,13 @@ const MultilevelLinearView = observer(
     }
 
     return (
-      <div>
-        <Header model={model} ExtraButtons={ExtraButtons} />
-        <div className={classes.container}>
+      <ThemeProvider theme={theme}>
+        <div>
+          <Header model={model} ExtraButtons={ExtraButtons} />
+          {/* <div className={classes.container}>
           <div className={classes.content}>
             <div className={classes.relative}>
-              {model.views.map(view => {
+              {model.views.map((view) => {
                 const { ReactComponent } = pluginManager.getViewType(view.type)
 
                 if (!model.initialized || !view.initialized) {
@@ -163,8 +168,9 @@ const MultilevelLinearView = observer(
               })}
             </div>
           </div>
+        </div> */}
         </div>
-      </div>
+      </ThemeProvider>
     )
   },
 )

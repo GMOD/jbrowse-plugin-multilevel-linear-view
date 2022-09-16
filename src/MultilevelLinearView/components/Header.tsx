@@ -6,16 +6,16 @@ import { useTheme, alpha } from '@mui/material/styles'
 import LinkIcon from '@mui/icons-material/Link'
 import LinkOffIcon from '@mui/icons-material/LinkOff'
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter'
-import { SearchBox } from '@jbrowse/plugin-linear-genome-view'
+// import { SearchBox } from '@jbrowse/plugin-linear-genome-view'
 import { getSession } from '@jbrowse/core/util'
 
 import { MultilevelLinearViewModel } from '../model'
 import { PanControls } from './Controls'
 import { RegionWidth } from './util'
 
-type LCV = MultilevelLinearViewModel
+type MLLV = MultilevelLinearViewModel
 
-const LinkViews = observer(({ model }: { model: LCV }) => {
+const LinkViews = observer(({ model }: { model: MLLV }) => {
   return (
     <IconButton
       onClick={model.toggleLinkViews}
@@ -30,7 +30,7 @@ const LinkViews = observer(({ model }: { model: LCV }) => {
   )
 })
 
-const AlignViews = observer(({ model }: { model: LCV }) => {
+const AlignViews = observer(({ model }: { model: MLLV }) => {
   return (
     <IconButton
       onClick={model.alignViews}
@@ -42,7 +42,13 @@ const AlignViews = observer(({ model }: { model: LCV }) => {
 })
 
 const Header = observer(
-  ({ model, ExtraButtons }: { model: LCV; ExtraButtons?: React.ReactNode }) => {
+  ({
+    model,
+    ExtraButtons,
+  }: {
+    model: MLLV
+    ExtraButtons?: React.ReactNode
+  }) => {
     const theme = useTheme()
     const { primary } = theme.palette
     const colour = primary.light
@@ -56,7 +62,7 @@ const Header = observer(
     ) as import('@jbrowse/plugin-linear-genome-view').default
 
     // @ts-ignore
-    const { ZoomControls } = LGV.exports
+    const { ZoomControls, SearchBox } = LGV.exports
 
     return (
       <div>
@@ -76,11 +82,13 @@ const Header = observer(
             <FormGroup row style={{ flexWrap: 'nowrap', marginRight: 7 }}>
               {/* @ts-ignore */}
               <PanControls model={anchorView} />
+              {/* USETHEME NOT FOUND */}
               <SearchBox model={anchorView} />
             </FormGroup>
             {/* @ts-ignore */}
             <RegionWidth model={anchorView} />
-            <ZoomControls model={anchorView} />
+            {/* ELEMENT TYPE IS INVALID EXPECTED A STRING */}
+            {/* <ZoomControls model={anchorView} /> */}
             <div style={{ flexGrow: 1 }} />
           </div>
         ) : null}

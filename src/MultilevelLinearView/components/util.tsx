@@ -3,9 +3,9 @@ import { observer } from 'mobx-react'
 import { Typography } from '@mui/material'
 import { LinearGenomeMultilevelViewModel } from '../../LinearGenomeMultilevelView/model'
 
-type LGV = LinearGenomeMultilevelViewModel
+type LGMLV = LinearGenomeMultilevelViewModel
 
-export const RegionWidth = observer(({ model }: { model: LGV }) => {
+export const RegionWidth = observer(({ model }: { model: LGMLV }) => {
   const { coarseTotalBp } = model
   return (
     <Typography

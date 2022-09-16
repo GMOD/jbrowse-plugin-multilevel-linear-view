@@ -4,12 +4,12 @@ import { Tooltip, TextField } from '@mui/material'
 import { measureText } from '@jbrowse/core/util'
 import { LinearGenomeMultilevelViewModel } from '../../LinearGenomeMultilevelView/model'
 
-type LGV = LinearGenomeMultilevelViewModel
+type LGMLV = LinearGenomeMultilevelViewModel
 
 const MAX_WIDTH = 100
 const MIN_WIDTH = 100
 
-const LabelField = observer(({ model }: { model: LGV }) => {
+const LabelField = observer(({ model }: { model: LGMLV }) => {
   const [displayName, setDisplayName] = useState(
     model.displayName ? model.displayName : '',
   )

@@ -7,8 +7,8 @@ import { makeStyles } from 'tss-react/mui'
 import { LinearGenomeMultilevelViewModel } from '../../LinearGenomeMultilevelView/model'
 import { MultilevelLinearViewModel } from '../model'
 
-type LCV = MultilevelLinearViewModel
-type LGV = LinearGenomeMultilevelViewModel
+type MLLV = MultilevelLinearViewModel
+type LGMLV = LinearGenomeMultilevelViewModel
 
 const useStyles = makeStyles()((theme) => ({
   guide: {
@@ -24,8 +24,8 @@ const AreaOfInterest = observer(
     view,
     polygonPoints,
   }: {
-    model: LCV
-    view: LGV
+    model: MLLV
+    view: LGMLV
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     polygonPoints: any
   }) => {
