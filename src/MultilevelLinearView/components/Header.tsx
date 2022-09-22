@@ -6,7 +6,6 @@ import { useTheme, alpha } from '@mui/material/styles'
 import LinkIcon from '@mui/icons-material/Link'
 import LinkOffIcon from '@mui/icons-material/LinkOff'
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter'
-// import { SearchBox } from '@jbrowse/plugin-linear-genome-view'
 import { getSession } from '@jbrowse/core/util'
 
 import { MultilevelLinearViewModel } from '../model'
@@ -82,13 +81,11 @@ const Header = observer(
             <FormGroup row style={{ flexWrap: 'nowrap', marginRight: 7 }}>
               {/* @ts-ignore */}
               <PanControls model={anchorView} />
-              {/* USETHEME NOT FOUND */}
               <SearchBox model={anchorView} />
             </FormGroup>
             {/* @ts-ignore */}
             <RegionWidth model={anchorView} />
-            {/* ELEMENT TYPE IS INVALID EXPECTED A STRING */}
-            {/* <ZoomControls model={anchorView} /> */}
+            <ZoomControls model={anchorView} />
             <div style={{ flexGrow: 1 }} />
           </div>
         ) : null}

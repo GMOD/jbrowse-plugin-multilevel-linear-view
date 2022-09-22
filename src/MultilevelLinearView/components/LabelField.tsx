@@ -37,22 +37,24 @@ const LabelField = observer(({ model }: { model: LGMLV }) => {
 
   return (
     <Tooltip title="Rename view" arrow>
-      <TextField
-        variant="standard"
-        value={displayName}
-        size="small"
-        margin="none"
-        style={{ margin: '0px', paddingRight: '5px' }}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onChange={(event: any) => setViewLabel(event?.target.value)}
-        InputProps={{
-          style: {
-            width: `${inputWidth}px`,
-            height: `25px`,
-            padding: '0px',
-          },
-        }}
-      />
+      <>
+        <TextField
+          variant="standard"
+          value={displayName}
+          size="small"
+          margin="none"
+          style={{ margin: '0px', paddingRight: '5px' }}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          onChange={(event: any) => setViewLabel(event?.target.value)}
+          InputProps={{
+            style: {
+              width: `${inputWidth}px`,
+              height: `25px`,
+              padding: '0px',
+            },
+          }}
+        />
+      </>
     </Tooltip>
   )
 })

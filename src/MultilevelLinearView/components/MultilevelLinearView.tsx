@@ -118,57 +118,59 @@ const MultilevelLinearView = observer(
       <ThemeProvider theme={theme}>
         <div>
           <Header model={model} ExtraButtons={ExtraButtons} />
-          {/* <div className={classes.container}>
-          <div className={classes.content}>
-            <div className={classes.relative}>
-              {model.views.map((view) => {
-                const { ReactComponent } = pluginManager.getViewType(view.type)
+          <div className={classes.container}>
+            <div className={classes.content}>
+              <div className={classes.relative}>
+                {model.views.map((view) => {
+                  const { ReactComponent } = pluginManager.getViewType(
+                    view.type,
+                  )
 
-                if (!model.initialized || !view.initialized) {
-                  return null
-                }
+                  if (!model.initialized || !view.initialized) {
+                    return null
+                  }
 
-                const polygonPoints = setPolygonPoints(model, view)
+                  const polygonPoints = setPolygonPoints(model, view)
 
-                return (
-                  <div key={view.id}>
-                    <>
-                      {!view.hideHeader && view.id !== model.views[0].id ? (
-                        <Subheader
-                          // @ts-ignore
-                          view={view}
-                          model={model}
-                          polygonPoints={polygonPoints}
-                        />
-                      ) : null}
-                      {
-                        // @ts-ignore
-                        !view.isAnchor &&
-                        // @ts-ignore
-                        view.isVisible ? (
-                          <AreaOfInterest
+                  return (
+                    <div key={view.id}>
+                      <>
+                        {!view.hideHeader && view.id !== model.views[0].id ? (
+                          <Subheader
                             // @ts-ignore
                             view={view}
                             model={model}
                             polygonPoints={polygonPoints}
                           />
+                        ) : null}
+                        {
+                          // @ts-ignore
+                          !view.isAnchor &&
+                          // @ts-ignore
+                          view.isVisible ? (
+                            <AreaOfInterest
+                              // @ts-ignore
+                              view={view}
+                              model={model}
+                              polygonPoints={polygonPoints}
+                            />
+                          ) : null
+                        }
+                      </>
+                      {
+                        // @ts-ignore
+                        view.isVisible ? (
+                          <>
+                            <ReactComponent key={view.id} model={view} />
+                          </>
                         ) : null
                       }
-                    </>
-                    {
-                      // @ts-ignore
-                      view.isVisible ? (
-                        <>
-                          <ReactComponent key={view.id} model={view} />
-                        </>
-                      ) : null
-                    }
-                  </div>
-                )
-              })}
+                    </div>
+                  )
+                })}
+              </div>
             </div>
           </div>
-        </div> */}
         </div>
       </ThemeProvider>
     )
