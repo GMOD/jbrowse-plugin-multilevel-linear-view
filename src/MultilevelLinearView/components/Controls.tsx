@@ -1,12 +1,12 @@
 import React from 'react'
 import { observer } from 'mobx-react'
+import { getEnv } from 'mobx-state-tree'
 import { Button, FormGroup } from '@mui/material'
 import { useTheme, alpha } from '@mui/material/styles'
 import { makeStyles } from 'tss-react/mui'
-
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import { SearchBox } from '@jbrowse/plugin-linear-genome-view'
+import { getSession } from '@jbrowse/core/util'
 
 import { LinearGenomeMultilevelViewModel } from '../../LinearGenomeMultilevelView/model'
 import { MultilevelLinearViewModel } from '../model'
@@ -132,6 +132,15 @@ const Controls = observer(
     ExtraControls?: React.ReactNode
   }) => {
     const { classes } = useStyles()
+
+    const pluginManager = getEnv(getSession(model)).pluginManager
+
+    const LGV = pluginManager.getPlugin(
+      'LinearGenomeViewPlugin',
+    ) as import('@jbrowse/plugin-linear-genome-view').default
+
+    // @ts-ignore
+    const { SearchBox } = LGV.exports
     return (
       <div className={classes.headerBar}>
         {model.views[0].id !== view.id ? (
