@@ -6,6 +6,7 @@ import { useTheme, alpha } from '@mui/material/styles'
 import LinkIcon from '@mui/icons-material/Link'
 import LinkOffIcon from '@mui/icons-material/LinkOff'
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter'
+import AlignHorizontalCenterIcon from '@mui/icons-material/AlignHorizontalCenter'
 import { getSession } from '@jbrowse/core/util'
 
 import { MultilevelLinearViewModel } from '../model'
@@ -34,6 +35,17 @@ const AlignViews = observer(({ model }: { model: MLLV }) => {
     <IconButton
       onClick={model.alignViews}
       title="Align views (realign sub views to the anchor view)"
+    >
+      <AlignHorizontalCenterIcon color="secondary" />
+    </IconButton>
+  )
+})
+
+const ResetZooms = observer(({ model }: { model: MLLV }) => {
+  return (
+    <IconButton
+      onClick={model.resetZooms}
+      title="Reset sub view zoom levels within one stage of the anchor view"
     >
       <FormatAlignCenterIcon color="secondary" />
     </IconButton>
@@ -77,6 +89,7 @@ const Header = observer(
           >
             <LinkViews model={model} />
             <AlignViews model={model} />
+            <ResetZooms model={model} />
             <div style={{ flexGrow: 1 }} />
             <FormGroup row style={{ flexWrap: 'nowrap', marginRight: 7 }}>
               {/* @ts-ignore */}

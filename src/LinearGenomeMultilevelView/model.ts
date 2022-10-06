@@ -217,6 +217,13 @@ export default function stateModelFactory(pluginManager: PluginManager) {
           self.showAllRegions()
         }
       },
+      /**
+       * moveIfAnchor is called when the user attempts to navigate using the rubberband functionality on the LGV
+       * this navigation (move) is only performed on the anchor view (if anchor) and thus disabled if the user
+       * attempts to rubber band nav on the 'sub' views. This way, we're able to navigate using the overview to
+       * trigger the nav on the anchor (and because they're linked, the sub views as well) as well as on the
+       * anchor track itself.
+       */
       moveIfAnchor(leftOffset: BpOffset, rightOffset: BpOffset) {
         if (self.isAnchor) {
           self.moveTo(leftOffset, rightOffset)

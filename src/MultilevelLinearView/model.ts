@@ -307,6 +307,7 @@ export default function stateModelFactory(pluginManager: PluginManager) {
         self.linkViews = !self.linkViews
       },
 
+      // realign sub views to the anchor view
       alignViews() {
         // @ts-ignore
         const anchorViewIndex = self.views.findIndex((view) => view.isAnchor)
@@ -406,6 +407,28 @@ export default function stateModelFactory(pluginManager: PluginManager) {
           self.setWidth(self.width)
           self.alignViews()
           self.setLimitBpPerPx()
+        }
+      },
+    }))
+    .actions((self) => ({
+      // reset the zoom levels of sub views within one stage of the anchor
+      resetZooms() {
+        let reversed = false
+        if (self.isDescending) {
+          self.reverseViewsDirection()
+          reversed = true
+        }
+        // @ts-ignore
+        const anchor = self.views.find((view) => view.isAnchor)
+        let zoomVal = anchor?.bpPerPx ? anchor?.bpPerPx : 1
+        let num = 2
+        self.views.forEach((view) => {
+          view.zoomTo(zoomVal)
+          zoomVal *= num
+          num++
+        })
+        if (reversed) {
+          self.reverseViewsDirection()
         }
       },
     }))
