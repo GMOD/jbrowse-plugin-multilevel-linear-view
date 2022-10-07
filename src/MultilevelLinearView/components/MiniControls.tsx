@@ -58,18 +58,16 @@ const MiniControls = observer((props: { model: LinearGenomeViewModel }) => {
             // @ts-ignore
             model.limitBpPerPx.limited &&
             // @ts-ignore
-            bpPerPx * 2 > model.limitBpPerPx.upperLimit ? (
+            bpPerPx * 2 > model.limitBpPerPx.apexUpperLimit ? (
               <Tooltip
-                title="The view is at its max zoom level relative to its neighbouring views"
+                title="This view is at its max zoom level relative to its neighbouring views"
                 arrow
               >
-                <>
-                  <span>
-                    <IconButton disabled data-testid="zoom_out">
-                      <ZoomOut />
-                    </IconButton>
-                  </span>
-                </>
+                <span>
+                  <IconButton disabled data-testid="zoom_out">
+                    <ZoomOut />
+                  </IconButton>
+                </span>
               </Tooltip>
             ) : (
               <IconButton
@@ -86,20 +84,20 @@ const MiniControls = observer((props: { model: LinearGenomeViewModel }) => {
           }
           {
             // @ts-ignore
-            model.limitBpPerPx.limited &&
+            model.isOverview ||
             // @ts-ignore
-            bpPerPx / 2 < model.limitBpPerPx.lowerLimit ? (
+            (model.limitBpPerPx.limited &&
+              // @ts-ignore
+              bpPerPx / 2 < model.limitBpPerPx.apexLowerLimit) ? (
               <Tooltip
-                title="The view is at its min zoom level relative to its neighbouring views"
+                title="This view is at its min zoom level relative to its neighbouring views"
                 arrow
               >
-                <>
-                  <span>
-                    <IconButton disabled data-testid="zoom_in">
-                      <ZoomOut />
-                    </IconButton>
-                  </span>
-                </>
+                <span>
+                  <IconButton disabled data-testid="zoom_in">
+                    <ZoomIn />
+                  </IconButton>
+                </span>
               </Tooltip>
             ) : (
               <IconButton

@@ -80,11 +80,17 @@ export default function stateModelFactory(pluginManager: PluginManager) {
         let prev = -1
         let next = 1
         self.views.forEach((view) => {
-          if (prev === -1) {
+          if (
+            (prev === -1 && self.isDescending) ||
+            (next === self.views.length && !self.isDescending)
+          ) {
             // @ts-ignore
             view.setLimitBpPerPx(true, view.bpPerPx, view.bpPerPx)
           }
-          if (next === self.views.length) {
+          if (
+            (next === self.views.length && self.isDescending) ||
+            (prev === -1 && !self.isDescending)
+          ) {
             // @ts-ignore
             view.setLimitBpPerPx(false, view.bpPerPx, view.bpPerPx)
           }
@@ -98,8 +104,22 @@ export default function stateModelFactory(pluginManager: PluginManager) {
               upperLimit = self.views[next].bpPerPx
               lowerLimit = self.views[prev].bpPerPx
             }
+            const apexUpperLimit = self.views.find(
+              // @ts-ignore
+              (view) => view.isOverview,
+            )?.bpPerPx
+            const apexLowerLimit = self.views.find(
+              // @ts-ignore
+              (view) => view.isAnchor,
+            )?.bpPerPx
             // @ts-ignore
-            view.setLimitBpPerPx(true, upperLimit, lowerLimit)
+            view.setLimitBpPerPx(
+              true,
+              upperLimit,
+              lowerLimit,
+              apexUpperLimit,
+              apexLowerLimit,
+            )
           }
 
           prev++
@@ -174,6 +194,66 @@ export default function stateModelFactory(pluginManager: PluginManager) {
         }
 
         if (actionName === 'zoomTo') {
+          // When zooming on a sub view, we want to force zoom its neighbours if there's a collision
+          const actingIndex = parseInt(path.charAt(path.length - 1))
+          const actingView = self.views[actingIndex]
+          let offset = 1
+          let currentView = self.views[actingIndex]
+          const isZoomIn = actingView.bpPerPx < args[0] ? false : true
+          actingView.zoomTo(args[0])
+          // @ts-ignore
+          if (!actingView.isAnchor) {
+            while (offset > 0) {
+              if (isZoomIn) {
+                const neighbour = self.isDescending
+                  ? self.views[actingIndex + offset]
+                  : self.views[actingIndex - offset]
+                if (currentView.bpPerPx <= neighbour.bpPerPx) {
+                  if (
+                    // @ts-ignore
+                    !neighbour.isAnchor &&
+                    // @ts-ignore
+                    !neighbour.isOverview &&
+                    neighbour.bpPerPx / 2 >=
+                      // @ts-ignore
+                      neighbour.limitBpPerPx.apexLowerLimit
+                  ) {
+                    neighbour.zoomTo(neighbour.bpPerPx / 2)
+                    offset++
+                    currentView = neighbour
+                  } else {
+                    offset = -1
+                  }
+                } else {
+                  offset = -1
+                }
+              } else {
+                const neighbour = self.isDescending
+                  ? self.views[actingIndex - offset]
+                  : self.views[actingIndex + offset]
+                if (currentView.bpPerPx >= neighbour.bpPerPx) {
+                  if (
+                    // @ts-ignore
+                    !neighbour.isAnchor &&
+                    // @ts-ignore
+                    !neighbour.isOverview &&
+                    neighbour.bpPerPx * 2 <=
+                      // @ts-ignore
+                      neighbour.limitBpPerPx.apexUpperLimit
+                  ) {
+                    neighbour.zoomTo(neighbour.bpPerPx * 2)
+                    offset++
+                    currentView = neighbour
+                  } else {
+                    offset = -1
+                  }
+                } else {
+                  offset = -1
+                }
+              }
+            }
+          }
+          // logic for zooming with the anchor
           self.views.forEach((view) => {
             if (path.endsWith(anchorViewIndex.toString())) {
               // @ts-ignore

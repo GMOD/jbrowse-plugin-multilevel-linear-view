@@ -50,7 +50,9 @@ export default function stateModelFactory(pluginManager: PluginManager) {
       limitBpPerPx: types.optional(types.frozen(), {
         limited: false,
         upperLimit: 1,
+        apexUpperLimit: 1,
         lowerLimit: 0,
+        apexLowerLimit: 0,
       }),
       polygonPoints: types.optional(types.frozen(), {
         left: -1,
@@ -76,11 +78,19 @@ export default function stateModelFactory(pluginManager: PluginManager) {
         limited: boolean,
         upperLimit?: number,
         lowerLimit?: number,
+        apexUpperLimit?: number,
+        apexLowerLimit?: number,
       ) {
         self.limitBpPerPx = {
           limited: limited,
           upperLimit: upperLimit ? upperLimit : self.limitBpPerPx.upperLimit,
+          apexUpperLimit: apexUpperLimit
+            ? apexUpperLimit
+            : self.limitBpPerPx.apexUpperLimit,
           lowerLimit: lowerLimit ? lowerLimit : self.limitBpPerPx.lowerLimit,
+          apexLowerLimit: apexLowerLimit
+            ? apexLowerLimit
+            : self.limitBpPerPx.apexLowerLimit,
         }
       },
       setPolygonPoints(
@@ -99,8 +109,8 @@ export default function stateModelFactory(pluginManager: PluginManager) {
       zoomTo(bpPerPx: number) {
         if (
           !self.limitBpPerPx.limited ||
-          (bpPerPx <= self.limitBpPerPx.upperLimit &&
-            bpPerPx >= self.limitBpPerPx.lowerLimit)
+          (bpPerPx <= self.limitBpPerPx.apexUpperLimit &&
+            bpPerPx >= self.limitBpPerPx.apexLowerLimit)
         ) {
           const newBpPerPx = clamp(bpPerPx, self.minBpPerPx, self.maxBpPerPx)
 
