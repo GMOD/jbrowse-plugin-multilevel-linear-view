@@ -433,8 +433,12 @@ export default function stateModelFactory(pluginManager: PluginManager) {
         )
         if (assembly) {
           let bp = isAbove
-            ? neighbour.limitBpPerPx.upperLimit
-            : neighbour.limitBpPerPx.lowerLimit
+            ? self.isDescending
+              ? neighbour.limitBpPerPx.upperLimit
+              : neighbour.limitBpPerPx.lowerLimit
+            : self.isDescending
+            ? neighbour.limitBpPerPx.lowerLimit
+            : neighbour.limitBpPerPx.upperLimit
 
           // @ts-ignore
           const anchor = self.views.find((view) => view.isAnchor)
@@ -464,7 +468,10 @@ export default function stateModelFactory(pluginManager: PluginManager) {
               offsetPx: offset ? offset : 0,
             }
           }
-          if (neighbour.isAnchor && !isAbove) {
+          if (
+            (neighbour.isAnchor && !isAbove) ||
+            (neighbour.isAnchor && isAbove && !self.isDescending)
+          ) {
             // @ts-ignore
             neighbour.toggleIsAnchor()
             // @ts-ignore
@@ -485,8 +492,8 @@ export default function stateModelFactory(pluginManager: PluginManager) {
             : self.views.findIndex((view) => view.id === neighbour.id) + 1
           self.insertView(loc, newView)
           self.setWidth(self.width)
-          self.alignViews()
           self.setLimitBpPerPx()
+          self.alignViews()
         }
       },
     }))
