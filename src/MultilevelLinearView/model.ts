@@ -202,88 +202,55 @@ export default function stateModelFactory(pluginManager: PluginManager) {
           const isZoomIn = actingView.bpPerPx < args[0] ? false : true
           actingView.zoomTo(args[0])
           // @ts-ignore
-          if (!actingView.isAnchor) {
-            while (offset > 0) {
-              if (isZoomIn) {
-                const neighbour = self.isDescending
-                  ? self.views[actingIndex + offset]
-                  : self.views[actingIndex - offset]
-                if (currentView.bpPerPx <= neighbour.bpPerPx) {
-                  if (
+          while (offset > 0) {
+            if (isZoomIn) {
+              const neighbour = self.isDescending
+                ? self.views[actingIndex + offset]
+                : self.views[actingIndex - offset]
+              if (neighbour && currentView.bpPerPx <= neighbour.bpPerPx) {
+                if (
+                  // @ts-ignore
+                  !neighbour.isAnchor &&
+                  // @ts-ignore
+                  !neighbour.isOverview &&
+                  neighbour.bpPerPx / 2 >=
                     // @ts-ignore
-                    !neighbour.isAnchor &&
-                    // @ts-ignore
-                    !neighbour.isOverview &&
-                    neighbour.bpPerPx / 2 >=
-                      // @ts-ignore
-                      neighbour.limitBpPerPx.apexLowerLimit
-                  ) {
-                    neighbour.zoomTo(neighbour.bpPerPx / 2)
-                    offset++
-                    currentView = neighbour
-                  } else {
-                    offset = -1
-                  }
+                    neighbour.limitBpPerPx.apexLowerLimit
+                ) {
+                  neighbour.zoomTo(neighbour.bpPerPx / 2)
+                  offset++
+                  currentView = neighbour
                 } else {
                   offset = -1
                 }
               } else {
-                const neighbour = self.isDescending
-                  ? self.views[actingIndex - offset]
-                  : self.views[actingIndex + offset]
-                if (currentView.bpPerPx >= neighbour.bpPerPx) {
-                  if (
+                offset = -1
+              }
+            } else {
+              const neighbour = self.isDescending
+                ? self.views[actingIndex - offset]
+                : self.views[actingIndex + offset]
+              if (neighbour && currentView.bpPerPx >= neighbour.bpPerPx) {
+                if (
+                  // @ts-ignore
+                  !neighbour.isAnchor &&
+                  // @ts-ignore
+                  !neighbour.isOverview &&
+                  neighbour.bpPerPx * 2 <=
                     // @ts-ignore
-                    !neighbour.isAnchor &&
-                    // @ts-ignore
-                    !neighbour.isOverview &&
-                    neighbour.bpPerPx * 2 <=
-                      // @ts-ignore
-                      neighbour.limitBpPerPx.apexUpperLimit
-                  ) {
-                    neighbour.zoomTo(neighbour.bpPerPx * 2)
-                    offset++
-                    currentView = neighbour
-                  } else {
-                    offset = -1
-                  }
+                    neighbour.limitBpPerPx.apexUpperLimit
+                ) {
+                  neighbour.zoomTo(neighbour.bpPerPx * 2)
+                  offset++
+                  currentView = neighbour
                 } else {
                   offset = -1
                 }
+              } else {
+                offset = -1
               }
             }
           }
-          // logic for zooming with the anchor
-          self.views.forEach((view) => {
-            if (path.endsWith(anchorViewIndex.toString())) {
-              // @ts-ignore
-              if (!view.isAnchor && !view.isOverview) {
-                if (view.initialized) {
-                  // @ts-ignore
-                  view.setLimitBpPerPx(false)
-                  const rev = view.bpPerPx
-                  const factor =
-                    view.bpPerPx !== 0
-                      ? args[0] /
-                        (self.views[anchorViewIndex].bpPerPx / view.bpPerPx)
-                      : 0
-                  // @ts-ignore
-                  view[actionName](factor)
-                  const ret = getPath(view)
-                  // reverse action for the view you're zooming on
-                  if (ret.lastIndexOf(path) === ret.length - path.length) {
-                    // @ts-ignore
-                    view[actionName](rev)
-                  }
-
-                  const center = self.views[anchorViewIndex].pxToBp(
-                    view.width / 2,
-                  )
-                  view.centerAt(center.coord, center.refName, center.index)
-                }
-              }
-            }
-          })
           self.setLimitBpPerPx()
         }
 
@@ -313,8 +280,17 @@ export default function stateModelFactory(pluginManager: PluginManager) {
                 view.zoomTo(targetBp)
                 view.centerAt(center.coord, center.refName, center.index)
               }
+              // @ts-ignore
+              if (view.isOverview) {
+                const center = self.views[anchorViewIndex].pxToBp(
+                  view.width / 2,
+                )
+                view.centerAt(center.coord, center.refName, center.index)
+              }
             }
           })
+          this.resetZooms()
+          this.alignViews()
           self.setLimitBpPerPx()
         }
 
@@ -400,6 +376,32 @@ export default function stateModelFactory(pluginManager: PluginManager) {
         })
       },
 
+      reverseViewsDirection() {
+        this.setIsDescending(!self.isDescending)
+        self.views.reverse()
+      },
+
+      // reset the zoom levels of sub views within one stage of the anchor
+      resetZooms() {
+        let reversed = false
+        if (self.isDescending) {
+          this.reverseViewsDirection()
+          reversed = true
+        }
+        // @ts-ignore
+        const anchor = self.views.find((view) => view.isAnchor)
+        let zoomVal = anchor?.bpPerPx ? anchor?.bpPerPx : 1
+        let num = 2
+        self.views.forEach((view) => {
+          view.zoomTo(zoomVal)
+          zoomVal *= num
+          num++
+        })
+        if (reversed) {
+          this.reverseViewsDirection()
+        }
+      },
+
       clearView() {
         self.views = cast([])
         self.linkViews = false
@@ -421,11 +423,6 @@ export default function stateModelFactory(pluginManager: PluginManager) {
       },
     }))
     .actions((self) => ({
-      reverseViewsDirection() {
-        self.setIsDescending(!self.isDescending)
-        self.views.reverse()
-      },
-
       async addView(isAbove: boolean, neighbour: any) {
         const { assemblyManager } = getSession(self)
         const assembly = await assemblyManager.waitForAssembly(
@@ -494,28 +491,6 @@ export default function stateModelFactory(pluginManager: PluginManager) {
           self.setWidth(self.width)
           self.setLimitBpPerPx()
           self.alignViews()
-        }
-      },
-    }))
-    .actions((self) => ({
-      // reset the zoom levels of sub views within one stage of the anchor
-      resetZooms() {
-        let reversed = false
-        if (self.isDescending) {
-          self.reverseViewsDirection()
-          reversed = true
-        }
-        // @ts-ignore
-        const anchor = self.views.find((view) => view.isAnchor)
-        let zoomVal = anchor?.bpPerPx ? anchor?.bpPerPx : 1
-        let num = 2
-        self.views.forEach((view) => {
-          view.zoomTo(zoomVal)
-          zoomVal *= num
-          num++
-        })
-        if (reversed) {
-          self.reverseViewsDirection()
         }
       },
     }))
