@@ -98,6 +98,7 @@ From the figure, controls are as follows:
 **Highlighted in yellow** the top level controls on the header control the movement and zoom of the anchor (pictured: named Details).
 
 ![](img/mllv.gif)
+<br>
 Figure: a .gif of the movement and some options possible with the multilevel linear view.
 
 ![](img/mllv_span.png)
