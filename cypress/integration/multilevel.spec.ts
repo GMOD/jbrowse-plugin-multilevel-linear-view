@@ -32,6 +32,7 @@ describe('The multilevel linear view', () => {
     cy.wait(1000)
     cy.get('[data-testid=mllv-minicontrols-menu]').eq(1).click()
     cy.contains('Add neighbouring view').click()
+    cy.wait(1000)
     cy.contains('Add view above').click()
     // there should be one fewer views available
     cy.get('[data-testid=rubberBand_controls').should('have.length', 5)
@@ -42,6 +43,7 @@ describe('The multilevel linear view', () => {
     cy.wait(1000)
     cy.get('[data-testid=mllv-minicontrols-menu]').eq(1).click()
     cy.contains('Add neighbouring view').click()
+    cy.wait(1000)
     cy.contains('Add view below').click()
     // there should be one fewer views available
     cy.get('[data-testid=rubberBand_controls').should('have.length', 5)
@@ -52,6 +54,7 @@ describe('The multilevel linear view', () => {
     cy.wait(1000)
     cy.get('[data-testid=mllv-minicontrols-menu]').eq(0).click()
     cy.contains('Add neighbouring view').click()
+    cy.wait(1000)
     cy.contains('Add view above').click()
     // there should be one fewer views available
     cy.get('[data-testid=rubberBand_controls').should('have.length', 5)
@@ -62,6 +65,7 @@ describe('The multilevel linear view', () => {
     cy.wait(1000)
     cy.get('[data-testid=mllv-minicontrols-menu]').eq(3).click()
     cy.contains('Add neighbouring view').click()
+    cy.wait(1000)
     cy.contains('Add view below').click()
     // there should be one fewer views available
     cy.get('[data-testid=rubberBand_controls').should('have.length', 5)
