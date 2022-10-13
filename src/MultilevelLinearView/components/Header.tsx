@@ -20,6 +20,7 @@ const LinkViews = observer(({ model }: { model: MLLV }) => {
     <IconButton
       onClick={model.toggleLinkViews}
       title="Toggle linked scrolls and behavior across views"
+      data-testid="link_views"
     >
       {model.linkViews ? (
         <LinkOffIcon color="secondary" />
@@ -35,6 +36,7 @@ const AlignViews = observer(({ model }: { model: MLLV }) => {
     <IconButton
       onClick={model.alignViews}
       title="Align views (realign sub views to the anchor view)"
+      data-testid="align_views"
     >
       <AlignHorizontalCenterIcon color="secondary" />
     </IconButton>
@@ -46,6 +48,7 @@ const ResetZooms = observer(({ model }: { model: MLLV }) => {
     <IconButton
       onClick={model.resetZooms}
       title="Reset sub view zoom levels within one stage of the anchor view"
+      data-testid="zoom_views"
     >
       <FormatAlignCenterIcon color="secondary" />
     </IconButton>

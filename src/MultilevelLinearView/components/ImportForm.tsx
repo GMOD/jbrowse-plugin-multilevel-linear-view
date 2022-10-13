@@ -285,6 +285,7 @@ const ImportForm = observer(
                   margin="normal"
                   onChange={(event) => setNumViews(event.target.value)}
                   style={{ width: '8rem', verticalAlign: 'baseline' }}
+                  data-testid="num_views"
                   helperText="Number of views"
                 />
               </>
@@ -297,6 +298,7 @@ const ImportForm = observer(
               variant="outlined"
               margin="normal"
               label="Order"
+              data-testid="cascade_order"
               onChange={(event) => setOrder(event.target.value)}
               style={{ width: '17rem', verticalAlign: 'baseline' }}
               helperText={`${order} order has the overview at the ${

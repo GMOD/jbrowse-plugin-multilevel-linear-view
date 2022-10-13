@@ -1,0 +1,323 @@
+{
+  "configuration": {
+    "rpc": {
+      "defaultDriver": "WebWorkerRpcDriver",
+      "drivers": {
+        "MainThreadRpcDriver": {},
+        "WebWorkerRpcDriver": {}
+      }
+    },
+    "logoPath": {
+      "locationType": "UriLocation",
+      "uri": ""
+    }
+  },
+  "plugins": [
+    {
+      "name": "MultilevelLinearView",
+      "url": "http://localhost:9000/dist/jbrowse-plugin-multilevel-linear-view.umd.development.js"
+    }
+  ],
+  "assemblies": [
+    {
+      "name": "hg38",
+      "aliases": ["GRCh38"],
+      "sequence": {
+        "type": "ReferenceSequenceTrack",
+        "trackId": "P6R5xbRqRr",
+        "adapter": {
+          "type": "BgzipFastaAdapter",
+          "fastaLocation": {
+            "locationType": "UriLocation",
+            "uri": "https://jbrowse.org/genomes/GRCh38/fasta/hg38.prefix.fa.gz"
+          },
+          "faiLocation": {
+            "locationType": "UriLocation",
+            "uri": "https://jbrowse.org/genomes/GRCh38/fasta/hg38.prefix.fa.gz.fai"
+          },
+          "metadataLocation": {
+            "locationType": "UriLocation",
+            "uri": "/path/to/fa.metadata.yaml"
+          },
+          "gziLocation": {
+            "locationType": "UriLocation",
+            "uri": "https://jbrowse.org/genomes/GRCh38/fasta/hg38.prefix.fa.gz.gzi"
+          }
+        },
+        "displays": [
+          {
+            "type": "LinearReferenceSequenceDisplay",
+            "displayId": "P6R5xbRqRr-LinearReferenceSequenceDisplay"
+          }
+        ]
+      },
+      "refNameAliases": {
+        "adapter": {
+          "type": "RefNameAliasAdapter",
+          "location": {
+            "locationType": "UriLocation",
+            "uri": "https://s3.amazonaws.com/jbrowse.org/genomes/GRCh38/hg38_aliases.txt"
+          }
+        }
+      },
+      "cytobands": {
+        "adapter": {
+          "type": "CytobandAdapter",
+          "cytobandLocation": {
+            "locationType": "UriLocation",
+            "uri": "https://s3.amazonaws.com/jbrowse.org/genomes/GRCh38/cytoBand.txt"
+          }
+        }
+      },
+      "displayName": "Homo sapiens (hg38)"
+    },
+    {
+      "name": "hg19",
+      "aliases": ["GRCh37"],
+      "sequence": {
+        "type": "ReferenceSequenceTrack",
+        "trackId": "Pd8Wh30ei9R",
+        "adapter": {
+          "type": "BgzipFastaAdapter",
+          "fastaLocation": {
+            "uri": "https://jbrowse.org/genomes/hg19/fasta/hg19.fa.gz",
+            "locationType": "UriLocation"
+          },
+          "faiLocation": {
+            "uri": "https://jbrowse.org/genomes/hg19/fasta/hg19.fa.gz.fai",
+            "locationType": "UriLocation"
+          },
+          "gziLocation": {
+            "uri": "https://jbrowse.org/genomes/hg19/fasta/hg19.fa.gz.gzi",
+            "locationType": "UriLocation"
+          }
+        }
+      },
+      "refNameAliases": {
+        "adapter": {
+          "type": "RefNameAliasAdapter",
+          "location": {
+            "uri": "https://s3.amazonaws.com/jbrowse.org/genomes/hg19/hg19_aliases.txt",
+            "locationType": "UriLocation"
+          }
+        }
+      }
+    }
+  ],
+  "tracks": [],
+  "internetAccounts": [
+    {
+      "type": "DropboxOAuthInternetAccount",
+      "internetAccountId": "dropboxOAuth",
+      "name": "Dropbox",
+      "description": "Account to access Dropbox files",
+      "clientId": "ykjqg1kr23pl1i7"
+    },
+    {
+      "type": "GoogleDriveOAuthInternetAccount",
+      "internetAccountId": "googleOAuth",
+      "name": "Google Drive",
+      "description": "Account to access Google Drive files",
+      "clientId": "109518325434-m86s8a5og8ijc5m6n7n8dk7e9586bg9i.apps.googleusercontent.com"
+    }
+  ],
+  "defaultSession": {
+    "id": "YqF0d4h5G",
+    "name": "New session 10/13/2022, 11:23:53 AM",
+    "margin": 0,
+    "drawerWidth": 384,
+    "views": [
+      {
+        "id": "MiDMyyWpxp",
+        "displayName": "MLLV Default",
+        "type": "MultilevelLinearView",
+        "height": 400,
+        "trackSelectorType": "hierarchical",
+        "linkViews": true,
+        "interactToggled": false,
+        "isDescending": true,
+        "tracks": [],
+        "views": [
+          {
+            "id": "u_h51cfM5",
+            "displayName": "Overview",
+            "type": "LinearGenomeMultilevelView",
+            "offsetPx": -95,
+            "bpPerPx": 144978.11670160727,
+            "displayedRegions": [
+              {
+                "refName": "1",
+                "start": 0,
+                "end": 248956422,
+                "reversed": false,
+                "assemblyName": "hg38"
+              }
+            ],
+            "tracks": [],
+            "hideHeader": false,
+            "hideHeaderOverview": false,
+            "hideNoTracksActive": false,
+            "trackSelectorType": "hierarchical",
+            "trackLabels": "offset",
+            "showCenterLine": false,
+            "showCytobandsSetting": false,
+            "showGridlines": true,
+            "hideControls": true,
+            "isVisible": true,
+            "isAnchor": false,
+            "isOverview": true,
+            "limitBpPerPx": {
+              "limited": true,
+              "upperLimit": 144978.11670160727,
+              "apexUpperLimit": 1,
+              "lowerLimit": 144978.11670160727,
+              "apexLowerLimit": 0
+            },
+            "polygonPoints": {
+              "left": -1,
+              "right": -1,
+              "prevLeft": -1,
+              "prevRight": -1
+            }
+          },
+          {
+            "id": "KHeLpHYNro",
+            "type": "LinearGenomeMultilevelView",
+            "offsetPx": 20745415,
+            "bpPerPx": 6,
+            "displayedRegions": [
+              {
+                "refName": "1",
+                "start": 0,
+                "end": 248956422,
+                "reversed": false,
+                "assemblyName": "hg38"
+              }
+            ],
+            "tracks": [],
+            "hideHeader": false,
+            "hideHeaderOverview": false,
+            "hideNoTracksActive": false,
+            "trackSelectorType": "hierarchical",
+            "trackLabels": "offset",
+            "showCenterLine": false,
+            "showCytobandsSetting": false,
+            "showGridlines": true,
+            "hideControls": true,
+            "isVisible": true,
+            "isAnchor": false,
+            "isOverview": false,
+            "limitBpPerPx": {
+              "limited": true,
+              "upperLimit": 144978.11670160727,
+              "apexUpperLimit": 144978.11670160727,
+              "lowerLimit": 2,
+              "apexLowerLimit": 1
+            },
+            "polygonPoints": {
+              "left": -1,
+              "right": -1,
+              "prevLeft": -1,
+              "prevRight": -1
+            }
+          },
+          {
+            "id": "0K-_aixm13",
+            "type": "LinearGenomeMultilevelView",
+            "offsetPx": 62238152,
+            "bpPerPx": 2,
+            "displayedRegions": [
+              {
+                "refName": "1",
+                "start": 0,
+                "end": 248956422,
+                "reversed": false,
+                "assemblyName": "hg38"
+              }
+            ],
+            "tracks": [],
+            "hideHeader": false,
+            "hideHeaderOverview": false,
+            "hideNoTracksActive": false,
+            "trackSelectorType": "hierarchical",
+            "trackLabels": "offset",
+            "showCenterLine": false,
+            "showCytobandsSetting": false,
+            "showGridlines": true,
+            "hideControls": true,
+            "isVisible": true,
+            "isAnchor": false,
+            "isOverview": false,
+            "limitBpPerPx": {
+              "limited": true,
+              "upperLimit": 6,
+              "apexUpperLimit": 144978.11670160727,
+              "lowerLimit": 1,
+              "apexLowerLimit": 1
+            },
+            "polygonPoints": {
+              "left": -1,
+              "right": -1,
+              "prevLeft": -1,
+              "prevRight": -1
+            }
+          },
+          {
+            "id": "urd8CnBIy-",
+            "displayName": "Details",
+            "type": "LinearGenomeMultilevelView",
+            "offsetPx": 124477257,
+            "bpPerPx": 1,
+            "displayedRegions": [
+              {
+                "refName": "1",
+                "start": 0,
+                "end": 248956422,
+                "reversed": false,
+                "assemblyName": "hg38"
+              }
+            ],
+            "tracks": [],
+            "hideHeader": false,
+            "hideHeaderOverview": false,
+            "hideNoTracksActive": false,
+            "trackSelectorType": "hierarchical",
+            "trackLabels": "offset",
+            "showCenterLine": false,
+            "showCytobandsSetting": false,
+            "showGridlines": true,
+            "hideControls": true,
+            "isVisible": true,
+            "isAnchor": true,
+            "isOverview": false,
+            "limitBpPerPx": {
+              "limited": false,
+              "upperLimit": 1,
+              "apexUpperLimit": 1,
+              "lowerLimit": 1,
+              "apexLowerLimit": 0
+            },
+            "polygonPoints": {
+              "left": -1,
+              "right": -1,
+              "prevLeft": -1,
+              "prevRight": -1
+            }
+          }
+        ]
+      }
+    ],
+    "widgets": {},
+    "activeWidgets": {},
+    "connectionInstances": [],
+    "sessionTracks": [],
+    "sessionConnections": [],
+    "sessionAssemblies": [],
+    "temporaryAssemblies": [],
+    "sessionPlugins": [],
+    "minimized": false,
+    "drawerPosition": "right"
+  },
+  "aggregateTextSearchAdapters": [],
+  "connections": []
+}

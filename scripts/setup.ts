@@ -76,11 +76,11 @@ async function updateSrcIndex(pluginClassName: string) {
 // replace default plugin name and url with project name and dist file
 async function updateJBrowseConfig(packageName: string, pluginName: string) {
   const jbrowseConfig = await readJSON(
-    path.join(__dirname, '..', 'jbrowse_config.json'),
+    path.join(__dirname, '..', 'config.json'),
   )
   jbrowseConfig.plugins[0].name = pluginName
   jbrowseConfig.plugins[0].url = `http://localhost:9000/dist/${packageName}.umd.development.js`
-  writeJSON('jbrowse_config.json', jbrowseConfig)
+  writeJSON('config.json', jbrowseConfig)
 }
 
 // replace default plugin name and url with project name and dist file
@@ -166,7 +166,7 @@ function toPascalCase(string: string) {
       ($1, $2, $3) => `${$2.toUpperCase() + $3.toLowerCase()}`,
     )
     .replace(new RegExp(/\s/, 'g'), '')
-    .replace(new RegExp(/\w/), s => s.toUpperCase())
+    .replace(new RegExp(/\w/), (s) => s.toUpperCase())
 }
 
 function getSafePackageName(name: string) {

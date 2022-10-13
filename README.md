@@ -1,4 +1,6 @@
-# `jbrowse-plugin-multilevel-linear-view`
+![Integration](git@github.com:GMOD/jbrowse-plugin-multilevel-linear-view/workflows/Integration/badge.svg?branch=main)
+
+# jbrowse-plugin-multilevel-linear-view
 
 > JBrowse 2 plugin that adds a linear genome view that can show multiple zoom levels.
 

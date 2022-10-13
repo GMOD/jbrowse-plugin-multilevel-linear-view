@@ -123,14 +123,7 @@
   ],
   "defaultSession": {
     "name": "New session",
-    "views": [
-      {
-        "id": "MiDMyyWpxp",
-        "type": "MultilevelLinearView",
-        "displayName": "MLLV Default",
-        "views": []
-      }
-    ]
+    "views": []
   },
   "aggregateTextSearchAdapters": [],
   "connections": []

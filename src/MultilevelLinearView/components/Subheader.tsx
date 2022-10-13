@@ -20,12 +20,9 @@ const Subheader = observer(
     polygonPoints: any
   }) => {
     return (
-      <Controls
-        data-testid="subheader"
-        model={model}
-        view={view}
-        polygonPoints={polygonPoints}
-      />
+      <div data-testid="subheader">
+        <Controls model={model} view={view} polygonPoints={polygonPoints} />
+      </div>
     )
   },
 )
