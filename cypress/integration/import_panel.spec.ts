@@ -2,7 +2,8 @@ describe('The multilevel linear view import panel', () => {
   it('is opened in JBrowse', () => {
     cy.exec('shx cp cypress/fixtures/clear_session.json .jbrowse')
     cy.visit('/?config=clear_session.json')
-    cy.contains('Empty').click()
+    cy.wait(1000)
+    cy.contains('Empty', { timeout: 10000 }).click()
     cy.contains('Add').click()
     cy.contains('Linear multilevel view').click()
     // it opens
