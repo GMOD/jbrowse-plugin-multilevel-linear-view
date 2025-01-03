@@ -72,7 +72,6 @@
     "@babel/preset-react": "^7.10.4",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "@jbrowse/cli": "^1.5.1",
     "@jbrowse/core": "^2.1.2",
     "@jbrowse/development-tools": "^2.1.1",
     "@jbrowse/plugin-linear-genome-view": "^2.1.2",

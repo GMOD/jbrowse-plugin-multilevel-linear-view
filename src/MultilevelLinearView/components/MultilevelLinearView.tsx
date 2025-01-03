@@ -124,7 +124,7 @@ const MultilevelLinearView = observer(
                 {model.views.map((view) => {
                   const { ReactComponent } = pluginManager.getViewType(
                     view.type,
-                  )
+                  )!
 
                   if (!model.initialized || !view.initialized) {
                     return null

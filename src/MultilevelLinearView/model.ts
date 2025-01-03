@@ -47,7 +47,7 @@ export default function stateModelFactory(pluginManager: PluginManager) {
           pluginManager.pluggableMstType('track', 'stateModel'),
         ),
         views: types.array(
-          pluginManager.getViewType('LinearGenomeMultilevelView')
+          pluginManager.getViewType('LinearGenomeMultilevelView')!
             .stateModel as LinearGenomeViewStateModel,
         ),
       }),
