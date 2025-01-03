@@ -60,7 +60,7 @@ const ImportForm = observer(
         label: regions[0]?.refName,
       })
 
-    const selectedRegion = option?.getLocation()
+    const selectedRegion = option?.getLocation() || option?.getLabel()
 
     useEffect(() => {
       const num = parseInt(numViews, 10)

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   addDisposer,
   cast,
@@ -6,7 +7,6 @@ import {
   types,
   Instance,
   SnapshotIn,
-  getEnv,
 } from 'mobx-state-tree'
 import FolderOpenIcon from '@mui/icons-material/FolderOpen'
 import SwapVertIcon from '@mui/icons-material/SwapVert'
@@ -14,7 +14,6 @@ import MenuIcon from '@mui/icons-material/Menu'
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter'
 import LinkIcon from '@mui/icons-material/Link'
 import LinkOffIcon from '@mui/icons-material/LinkOff'
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import BaseViewModel from '@jbrowse/core/pluggableElementTypes/models/BaseViewModel'
 import { MenuItem } from '@jbrowse/core/ui'
 import { getSession } from '@jbrowse/core/util'
@@ -62,9 +61,13 @@ export default function stateModelFactory(pluginManager: PluginManager) {
       },
 
       get refNames() {
-        return self.views.map((v) => [
-          ...new Set(v.staticBlocks.map((m: any) => m.refName)),
-        ])
+        return [
+          ...new Set(
+            self.views
+              .map((v) => v.staticBlocks.map((m: any) => m.refName))
+              .flat(),
+          ),
+        ]
       },
 
       get assemblyNames() {

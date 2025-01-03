@@ -6,7 +6,7 @@ import MultilevelLinearViewF from './MultilevelLinearView'
 import LinearGenomeMultilevelViewF from './LinearGenomeMultilevelView'
 import { version } from '../package.json'
 
-export default class MultilevelLinearView extends Plugin {
+export default class extends Plugin {
   name = 'MultilevelLinearViewPlugin'
   version = version
 
