@@ -1,3 +1,4 @@
+//@ts-nocheck
 import PluginManager from '@jbrowse/core/PluginManager'
 import LinearGenomeViewPlugin from '@jbrowse/plugin-linear-genome-view'
 import LinearGenomeMultilevelView from '../LinearGenomeMultilevelView'
