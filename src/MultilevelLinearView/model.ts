@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   addDisposer,
   cast,
@@ -7,6 +6,7 @@ import {
   types,
   Instance,
   SnapshotIn,
+  getEnv,
 } from 'mobx-state-tree'
 import FolderOpenIcon from '@mui/icons-material/FolderOpen'
 import SwapVertIcon from '@mui/icons-material/SwapVert'
@@ -14,6 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter'
 import LinkIcon from '@mui/icons-material/Link'
 import LinkOffIcon from '@mui/icons-material/LinkOff'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import BaseViewModel from '@jbrowse/core/pluggableElementTypes/models/BaseViewModel'
 import { MenuItem } from '@jbrowse/core/ui'
 import { getSession } from '@jbrowse/core/util'
@@ -61,13 +62,9 @@ export default function stateModelFactory(pluginManager: PluginManager) {
       },
 
       get refNames() {
-        return [
-          ...new Set(
-            self.views
-              .map((v) => v.staticBlocks.map((m: any) => m.refName))
-              .flat(),
-          ),
-        ]
+        return self.views.map((v) => [
+          ...new Set(v.staticBlocks.map((m: any) => m.refName)),
+        ])
       },
 
       get assemblyNames() {
@@ -408,6 +405,21 @@ export default function stateModelFactory(pluginManager: PluginManager) {
       clearView() {
         self.views = cast([])
         self.linkViews = false
+      },
+
+      removeView(target: any) {
+        const session = getSession(self)
+        const pluginManager = getEnv(session)
+        // cannot remove the anchor or the overview -- needs to have minimum these two views
+        if (target.isAnchor === false && target.isOverview === false) {
+          self.views.remove(target)
+          session.notify(`A view has been closed`, 'info', {
+            name: 'undo' as any,
+            onClick: () => {
+              pluginManager.rootModel.history.undo()
+            },
+          })
+        }
       },
     }))
     .actions((self) => ({
