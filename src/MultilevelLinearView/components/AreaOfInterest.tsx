@@ -1,7 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { Typography } from '@mui/material'
-import { useTheme, alpha } from '@mui/material/styles'
+import { useTheme, alpha } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
 
 import { LinearGenomeMultilevelViewModel } from '../../LinearGenomeMultilevelView/model'

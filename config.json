@@ -15,7 +15,7 @@
   "plugins": [
     {
       "name": "MultilevelLinearView",
-      "url": "http://localhost:9000/dist/jbrowse-plugin-multilevel-linear-view.umd.development.js"
+      "url": "http://localhost:9000/dist/jbrowse-plugin-multilevel-linear-view2.umd.development.js"
     }
   ],
   "assemblies": [
