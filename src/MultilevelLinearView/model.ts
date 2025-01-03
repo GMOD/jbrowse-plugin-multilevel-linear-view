@@ -406,21 +406,6 @@ export default function stateModelFactory(pluginManager: PluginManager) {
         self.views = cast([])
         self.linkViews = false
       },
-
-      removeView(target: any) {
-        const session = getSession(self)
-        const pluginManager = getEnv(session)
-        // cannot remove the anchor or the overview -- needs to have minimum these two views
-        if (target.isAnchor === false && target.isOverview === false) {
-          self.views.remove(target)
-          session.notify(`A view has been closed`, 'info', {
-            name: 'undo',
-            onClick: () => {
-              pluginManager.rootModel.history.undo()
-            },
-          })
-        }
-      },
     }))
     .actions((self) => ({
       async addView(isAbove: boolean, neighbour: any) {

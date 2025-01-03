@@ -16,7 +16,7 @@ import { getSession, isSessionWithAddTracks } from '@jbrowse/core/util'
 import { ErrorMessage, AssemblySelector } from '@jbrowse/core/ui'
 import BaseResult from '@jbrowse/core/TextSearch/BaseResults'
 import { SearchType } from '@jbrowse/core/data_adapters/BaseAdapter'
-import { RefNameAutocomplete } from '@jbrowse/plugin-linear-genome-view/'
+import { RefNameAutocomplete } from '@jbrowse/plugin-linear-genome-view'
 
 import { MultilevelLinearViewModel } from '../model'
 
@@ -102,7 +102,7 @@ const ImportForm = observer(
             model.setSearchResults(results, input.toLowerCase())
             return
           } else if (results?.length === 1) {
-            location = results[0].getLocation()
+            location = results[0].getLocation()!
             trackId = results[0].getTrackId()
           }
           model.navToLocString(location, selected[0])
