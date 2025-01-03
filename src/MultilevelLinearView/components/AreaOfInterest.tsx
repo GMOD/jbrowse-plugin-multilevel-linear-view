@@ -9,7 +9,7 @@ import { MultilevelLinearViewModel } from '../model'
 type LCV = MultilevelLinearViewModel
 type LGV = LinearGenomeMultilevelViewModel
 
-const useStyles = makeStyles()(theme => ({
+const useStyles = makeStyles()((theme) => ({
   guide: {
     pointerEvents: 'none',
     position: 'absolute',
@@ -47,11 +47,11 @@ const AreaOfInterest = observer(
           ? view.height + 55
           : view.height - 12
         : view.hideHeader
-        ? view.height + (view.tracks.length - 1) * 4 + labelOffset
-        : view.height - 55 - 12 + (view.tracks.length - 1) * 4 + labelOffset
+          ? view.height + (view.tracks.length - 1) * 4 + labelOffset
+          : view.height - 55 - 12 + (view.tracks.length - 1) * 4 + labelOffset
 
     // @ts-ignore
-    const anchorView = model.views.find(view => view.isAnchor)
+    const anchorView = model.views.find((view) => view.isAnchor)
 
     return (
       <>

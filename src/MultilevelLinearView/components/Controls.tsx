@@ -5,12 +5,13 @@ import { makeStyles } from 'tss-react/mui'
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import { SearchBox } from '@jbrowse/plugin-linear-genome-view'
 
 import { LinearGenomeMultilevelViewModel } from '../../LinearGenomeMultilevelView/model'
 import { MultilevelLinearViewModel } from '../model'
 import MiniControls from './MiniControls'
 
+import type LGVPlugin from '@jbrowse/plugin-linear-genome-view'
+import { getEnv } from '@jbrowse/core/util'
 type LCV = MultilevelLinearViewModel
 type LGV = LinearGenomeMultilevelViewModel
 
@@ -18,7 +19,7 @@ const WIDGET_HEIGHT = 32
 const SPACING = 7
 const HEADER_BAR_HEIGHT = 48
 
-const useStyles = makeStyles()(theme => ({
+const useStyles = makeStyles()((theme) => ({
   headerBar: {
     gridArea: '1/1/auto/span 2',
     display: 'flex',
@@ -144,6 +145,11 @@ const Controls = observer(
     polygonPoints?: any
     ExtraControls?: React.ReactNode
   }) => {
+    const { pluginManager } = getEnv(model)
+    const LGVPlugin = pluginManager.getPlugin(
+      'LinearGenomeViewPlugin',
+    ) as LGVPlugin
+    const { SearchBox } = LGVPlugin.exports
     const { classes } = useStyles()
     return (
       <div className={classes.headerBar}>

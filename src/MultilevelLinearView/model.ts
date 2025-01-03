@@ -47,7 +47,7 @@ export default function stateModelFactory(pluginManager: PluginManager) {
           pluginManager.pluggableMstType('track', 'stateModel'),
         ),
         views: types.array(
-          pluginManager.getViewType('LinearGenomeMultilevelView')
+          pluginManager.getViewType('LinearGenomeMultilevelView')!
             .stateModel as LinearGenomeViewStateModel,
         ),
       }),
@@ -331,7 +331,7 @@ export default function stateModelFactory(pluginManager: PluginManager) {
         if (target.isAnchor === false && target.isOverview === false) {
           self.views.remove(target)
           session.notify(`A view has been closed`, 'info', {
-            name: 'undo',
+            name: 'undo' as any,
             onClick: () => {
               pluginManager.rootModel.history.undo()
             },

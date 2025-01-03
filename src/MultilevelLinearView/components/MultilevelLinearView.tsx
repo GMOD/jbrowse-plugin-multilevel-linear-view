@@ -35,7 +35,7 @@ type LCV = MultilevelLinearViewModel
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const setPolygonPoints = (model: any, view: any) => {
   // @ts-ignore
-  const anchorView = model.views.find(view => view.isAnchor)
+  const anchorView = model.views.find((view) => view.isAnchor)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getLeft = (view: any) => {
     const coordA = bpToPx(
@@ -116,7 +116,7 @@ const MultilevelLinearView = observer(
         <div className={classes.container}>
           <div className={classes.content}>
             <div className={classes.relative}>
-              {model.views.map(view => {
+              {model.views.map((view) => {
                 const { ReactComponent } = pluginManager.getViewType(view.type)
 
                 if (!model.initialized || !view.initialized) {

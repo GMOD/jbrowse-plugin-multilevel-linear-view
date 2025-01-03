@@ -35,7 +35,7 @@ export interface BpOffset {
 
 export default function stateModelFactory(pluginManager: PluginManager) {
   return (
-    pluginManager.getViewType('LinearGenomeView')
+    pluginManager.getViewType('LinearGenomeView')!
       .stateModel as LinearGenomeViewStateModel
   )
     .named('LinearGenomeMultilevelView')
